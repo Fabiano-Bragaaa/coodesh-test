@@ -6,6 +6,5 @@ export function useEntry(word: string) {
   return useAppQuery({
     queryKey: queryKeys.entry.one(word),
     queryFn: () => entryService.lookup(word),
-    staleTime: Infinity,
   });
 }

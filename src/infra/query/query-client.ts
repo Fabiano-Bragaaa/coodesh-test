@@ -8,7 +8,7 @@ const CACHE_MAX_AGE = 7 * DAY_MS;
 
 export const queryClient = new QueryClient({
   defaultOptions: {
-    queries: { gcTime: CACHE_MAX_AGE },
+    queries: { gcTime: CACHE_MAX_AGE, staleTime: Infinity },
   },
 });
 
