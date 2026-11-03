@@ -1,0 +1,19 @@
+{
+  "tabs": {
+    "words": "Palavras",
+    "history": "Histórico",
+    "favorites": "Favoritos"
+  },
+  "words": {
+    "title": "Lista de palavras",
+    "empty": "As palavras aparecem aqui em breve."
+  },
+  "history": {
+    "title": "Histórico",
+    "empty": "As palavras que você abrir aparecem aqui."
+  },
+  "favorites": {
+    "title": "Favoritos",
+    "empty": "As palavras que você favoritar aparecem aqui."
+  }
+}
