@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Dicionário",
+    "slug": "coodesh-dictionary",
+    "version": "1.0.0",
+    "scheme": "dictionary",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.fabianobraga.dictionary"
+    },
+    "android": {
+      "package": "com.fabianobraga.dictionary",
+      "adaptiveIcon": {
+        "backgroundColor": "#E6F4FE",
+        "foregroundImage": "./assets/android-icon-foreground.png",
+        "backgroundImage": "./assets/android-icon-background.png",
+        "monochromeImage": "./assets/android-icon-monochrome.png"
+      },
+      "predictiveBackGestureEnabled": false
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

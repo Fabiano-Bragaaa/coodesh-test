@@ -1,0 +1,6 @@
+catalog:
+  "@types/bun": "*"
+  "@types/react": "*"
+  react-native-web: "*"
+  typescript: "*"
+  vite: "*"

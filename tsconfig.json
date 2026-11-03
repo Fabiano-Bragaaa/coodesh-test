@@ -1,0 +1,20 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "paths": {
+      "@components": ["./src/components"],
+      "@domain": ["./src/domain"],
+      "@hooks": ["./src/hooks"],
+      "@infra": ["./src/infra"],
+      "@routes": ["./src/routes"],
+      "@screens": ["./src/screens"],
+      "@services": ["./src/services"],
+      "@theme": ["./src/theme"],
+      "@translate": ["./src/translate"],
+      "@utils": ["./src/utils"]
+    }
+  },
+  "include": ["**/*.ts", "**/*.tsx", "uniwind-types.d.ts", "css-modules.d.ts"],
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "android", "ios"]
+}
