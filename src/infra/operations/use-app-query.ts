@@ -18,20 +18,8 @@ type UseAppQueryParams<TD> = {
   retry?: number;
 };
 
-export function useAppQuery<TD>({
-  queryKey,
-  queryFn,
-  enabled,
-  staleTime,
-  retry,
-}: UseAppQueryParams<TD>): UseAppQueryReturn<TD> {
-  const query = useQuery<TD, Error, TD>({
-    queryKey,
-    queryFn,
-    enabled,
-    staleTime,
-    retry,
-  });
+export function useAppQuery<TD>({ queryKey, queryFn, ...options }: UseAppQueryParams<TD>): UseAppQueryReturn<TD> {
+  const query = useQuery<TD, Error, TD>({ queryKey, queryFn, ...options });
 
   function refetch() {
     query.refetch();

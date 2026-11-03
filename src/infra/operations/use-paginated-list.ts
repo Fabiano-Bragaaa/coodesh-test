@@ -31,8 +31,7 @@ export function usePaginatedList<Data>(
     queryFn: ({ pageParam }) => getList(pageParam),
     initialPageParam: FIRST_PAGE,
     getNextPageParam: ({ meta }) => (meta.hasNextPage ? meta.currentPage + 1 : undefined),
-    enabled: options?.enabled,
-    staleTime: options?.staleTime,
+    ...options,
   });
 
   const list = useMemo(() => query.data?.pages.flatMap((page) => page.data) ?? [], [query.data]);
