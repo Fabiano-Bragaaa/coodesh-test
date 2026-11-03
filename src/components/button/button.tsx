@@ -1,5 +1,5 @@
 import { type ReactNode } from "react";
-import { Pressable, type PressableProps, View } from "react-native";
+import { ActivityIndicator, Pressable, type PressableProps, View } from "react-native";
 
 import { Text } from "../text/text";
 import { buttonStyle, type ButtonSize, type ButtonVariant } from "./button-preset";
@@ -10,6 +10,7 @@ export type ButtonProps = Omit<PressableProps, "children" | "style"> & {
   variant?: ButtonVariant;
   size?: ButtonSize;
   containerClassName?: string;
+  isLoading?: boolean;
 };
 
 export function Button({
@@ -19,6 +20,7 @@ export function Button({
   size,
   disabled,
   containerClassName,
+  isLoading = false,
   ...props
 }: ButtonProps) {
   const iconOnly = size === "icon";
@@ -27,11 +29,20 @@ export function Button({
     <Pressable
       accessibilityRole="button"
       accessibilityLabel={iconOnly ? title : undefined}
-      disabled={disabled}
+      disabled={disabled || isLoading}
+      accessibilityState={{ busy: isLoading }}
       className={containerClassName}
       {...props}>
       {({ pressed }) => {
         const style = buttonStyle({ variant, size, pressed, inactive: Boolean(disabled) });
+
+        if (isLoading) {
+          return (
+            <View className={style.container()}>
+              <ActivityIndicator colorClassName={style.spinner()} />
+            </View>
+          );
+        }
 
         return (
           <View className={style.container()}>
