@@ -1,5 +1,4 @@
-import { type EntryJson, type MeaningJson } from "./entry-api";
-import { type EntryLookup, type Meaning } from "./entry-types";
+import { type EntryJson, type EntryLookup, type Meaning, type MeaningJson } from "./entry-types";
 
 function toMeaning(meaning: MeaningJson): Meaning {
   return {
@@ -42,8 +41,8 @@ function firstAudio(entries: EntryJson[]): string | null {
   return phonetics.find((phonetic) => phonetic.audio)?.audio ?? null;
 }
 
-function toLookup(word: string, entries: EntryJson[] | null): EntryLookup {
-  if (!entries || entries.length === 0) {
+function toLookup(word: string, entries: EntryJson[]): EntryLookup {
+  if (entries.length === 0) {
     return { status: "not-found" };
   }
 
