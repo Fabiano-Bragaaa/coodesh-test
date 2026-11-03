@@ -60,7 +60,11 @@ export function Page({
   return (
     <View className="flex-1 bg-background">
       {scroll ? (
-        <ScrollView contentContainerStyle={contentContainerStyle} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={contentContainerStyle}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          automaticallyAdjustKeyboardInsets>
           {body}
         </ScrollView>
       ) : (
