@@ -3,6 +3,10 @@
     "close": "Fechar",
     "retry": "Tentar de novo"
   },
+  "list": {
+    "empty": "Nada por aqui ainda.",
+    "error": "Não conseguimos carregar a lista. Confira sua conexão."
+  },
   "tabs": {
     "words": "Palavras",
     "history": "Histórico",

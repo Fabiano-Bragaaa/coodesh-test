@@ -10,6 +10,7 @@ export type UsePaginatedListResult<Data> = {
   isError: boolean;
   isLoading: boolean;
   isFetchingNextPage: boolean;
+  isRefreshing: boolean;
   hasNextPage: boolean;
   refresh: () => void;
   fetchNextPage: () => void;
@@ -41,6 +42,7 @@ export function usePaginatedList<Data>(
     isError: query.isError,
     isLoading: query.isLoading,
     isFetchingNextPage: query.isFetchingNextPage,
+    isRefreshing: query.isRefetching && !query.isFetchingNextPage,
     hasNextPage: query.hasNextPage,
     refresh: () => {
       query.refetch();
