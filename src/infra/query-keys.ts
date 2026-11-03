@@ -10,4 +10,7 @@ export const queryKeys = {
     list: (userId: string | undefined) => ["favorites", "list", userId],
     one: (userId: string | undefined, word: string) => ["favorites", "one", userId, word],
   },
+  history: {
+    list: (userId: string | undefined) => ["history", "list", userId],
+  },
 };
