@@ -2,10 +2,10 @@ import "react-native-url-polyfill/auto";
 
 import { createClient } from "@supabase/supabase-js";
 
+import { timedFetch } from "../network/timed-fetch";
 import { mmkvStorage } from "../storage/mmkv-storage";
 
 import { type Database } from "./database.types";
-import { timedFetch } from "./timed-fetch";
 
 function getSupabaseEnv(): { url: string; key: string } {
   const url = process.env.EXPO_PUBLIC_SUPABASE_URL;

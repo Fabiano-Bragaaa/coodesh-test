@@ -68,7 +68,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      word_neighbors: {
+        Args: { p_word: string }
+        Returns: {
+          next: string
+          previous: string
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

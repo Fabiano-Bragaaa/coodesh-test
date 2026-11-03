@@ -1,4 +1,12 @@
 {
+  "common": {
+    "close": "Fechar",
+    "retry": "Tentar de novo"
+  },
+  "list": {
+    "empty": "Nada por aqui ainda.",
+    "error": "Não conseguimos carregar a lista. Confira sua conexão."
+  },
   "tabs": {
     "words": "Palavras",
     "history": "Histórico",
@@ -6,7 +14,16 @@
   },
   "words": {
     "title": "Lista de palavras",
-    "empty": "As palavras aparecem aqui em breve."
+    "error": "Não conseguimos carregar as palavras. Confira sua conexão."
+  },
+  "word": {
+    "meanings": "Significados",
+    "example": "Exemplo: {{example}}",
+    "synonyms": "Sinônimos: {{synonyms}}",
+    "previous": "Voltar",
+    "next": "Próximo",
+    "notFound": "Essa palavra ainda não tem definição no dicionário.",
+    "error": "Não conseguimos carregar essa palavra. Confira sua conexão."
   },
   "history": {
     "title": "Histórico",
