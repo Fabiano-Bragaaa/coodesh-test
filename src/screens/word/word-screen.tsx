@@ -9,6 +9,7 @@ import { WordHero } from "./components/word-hero";
 import { WordMeanings } from "./components/word-meanings";
 import { WordSteps } from "./components/word-steps";
 import { useWordFavorite } from "./hooks/use-word-favorite";
+import { useWordHistory } from "./hooks/use-word-history";
 
 type WordScreenProps = NativeStackScreenProps<AppStackParamList, "Word">;
 
@@ -17,6 +18,7 @@ export function WordScreen({ route, navigation }: WordScreenProps) {
   const entry = useEntry(word);
   const neighbors = useWordNeighbors(word);
   const favorite = useWordFavorite(word);
+  useWordHistory(word);
   const found = entry.data?.status === "found" ? entry.data.entry : null;
 
   return (
