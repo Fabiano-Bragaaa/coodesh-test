@@ -1,16 +1,19 @@
+import { type Page, pageAdapter } from "@infra";
+
 import { wordAdapter } from "./word-adapter";
 import { wordApi } from "./word-api";
-import { type WordNeighbors, type WordPage } from "./word-types";
+import { type Word, type WordNeighbors } from "./word-types";
 
-export const WORD_PAGE_SIZE = 21;
-export const FIRST_WORD_CURSOR = 0;
+const WORDS_PER_PAGE = 21;
 
-async function listAfter(afterId: number): Promise<WordPage> {
-  return wordAdapter.toWordPage(await wordApi.listAfter(afterId, WORD_PAGE_SIZE), WORD_PAGE_SIZE);
+async function getList(page: number): Promise<Page<Word>> {
+  const params = { page, perPage: WORDS_PER_PAGE };
+
+  return pageAdapter.toPage(await wordApi.getList(params), params, wordAdapter.toWord);
 }
 
 async function neighbors(word: string): Promise<WordNeighbors> {
   return wordAdapter.toNeighbors(await wordApi.neighbors(word));
 }
 
-export const wordService = { listAfter, neighbors };
+export const wordService = { getList, neighbors };

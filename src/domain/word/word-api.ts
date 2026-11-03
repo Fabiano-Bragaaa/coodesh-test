@@ -1,12 +1,15 @@
-import { supabase } from "@infra";
+import { type PageParams, supabase } from "@infra";
 
-async function listAfter(afterId: number, size: number) {
+async function getList({ page, perPage }: PageParams) {
+  const firstId = (page - 1) * perPage + 1;
+  const lastId = page * perPage;
+
   const { data, error } = await supabase
     .from("words")
     .select("id, word")
-    .gt("id", afterId)
-    .order("id")
-    .limit(size);
+    .gte("id", firstId)
+    .lte("id", lastId)
+    .order("id");
 
   if (error) {
     throw error;
@@ -25,4 +28,4 @@ async function neighbors(word: string) {
   return data;
 }
 
-export const wordApi = { listAfter, neighbors };
+export const wordApi = { getList, neighbors };

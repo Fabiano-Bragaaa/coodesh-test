@@ -24,7 +24,7 @@ export function WordScreen({ route, navigation }: WordScreenProps) {
         <WordMeanings
           lookup={entry.data}
           isLoading={entry.isLoading}
-          hasError={entry.error !== null}
+          isError={entry.error !== null}
           onRetry={entry.refetch}
         />
       </View>

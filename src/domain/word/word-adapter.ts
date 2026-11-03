@@ -1,18 +1,12 @@
 import { type Database } from "@infra";
 
-import { type Word, type WordNeighbors, type WordPage } from "./word-types";
+import { type Word, type WordNeighbors } from "./word-types";
 
 type WordRow = Pick<Database["public"]["Tables"]["words"]["Row"], "id" | "word">;
 type NeighborsRow = Database["public"]["Functions"]["word_neighbors"]["Returns"][number];
 
-function toWordPage(rows: WordRow[], size: number): WordPage {
-  const words: Word[] = rows.map((row) => ({ id: row.id, text: row.word }));
-  const last = words.at(-1);
-
-  return {
-    words,
-    nextCursor: last && words.length === size ? last.id : null,
-  };
+function toWord(row: WordRow): Word {
+  return { id: row.id, text: row.word };
 }
 
 function toNeighbors(rows: NeighborsRow[]): WordNeighbors {
@@ -24,4 +18,4 @@ function toNeighbors(rows: NeighborsRow[]): WordNeighbors {
   };
 }
 
-export const wordAdapter = { toWordPage, toNeighbors };
+export const wordAdapter = { toWord, toNeighbors };

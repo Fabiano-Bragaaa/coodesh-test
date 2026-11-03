@@ -10,8 +10,8 @@ const END_REACHED_THRESHOLD = 0.6;
 type WordGridProps = {
   words: Word[];
   isLoading: boolean;
-  isFetchingMore: boolean;
-  hasError: boolean;
+  isFetchingNextPage: boolean;
+  isError: boolean;
   onRetry: () => void;
   onEndReached: () => void;
   onPressWord: (word: string) => void;
@@ -36,19 +36,19 @@ function WordCell({ word, onPress }: WordCellProps) {
 }
 
 type GridFooterProps = {
-  isFetchingMore: boolean;
-  hasError: boolean;
+  isFetchingNextPage: boolean;
+  isError: boolean;
   onRetry: () => void;
 };
 
-function GridFooter({ isFetchingMore, hasError, onRetry }: GridFooterProps) {
+function GridFooter({ isFetchingNextPage, isError, onRetry }: GridFooterProps) {
   const { t } = useTranslate();
 
-  if (isFetchingMore) {
+  if (isFetchingNextPage) {
     return <LoadingState />;
   }
 
-  if (hasError) {
+  if (isError) {
     return (
       <View className="py-4">
         <Button title={t("common.retry")} variant="outline" onPress={onRetry} />
@@ -62,8 +62,8 @@ function GridFooter({ isFetchingMore, hasError, onRetry }: GridFooterProps) {
 export function WordGrid({
   words,
   isLoading,
-  isFetchingMore,
-  hasError,
+  isFetchingNextPage,
+  isError,
   onRetry,
   onEndReached,
   onPressWord,
@@ -74,7 +74,7 @@ export function WordGrid({
     return <LoadingState />;
   }
 
-  if (hasError && words.length === 0) {
+  if (isError && words.length === 0) {
     return <ErrorState message={t("words.error")} retryLabel={t("common.retry")} onRetry={onRetry} />;
   }
 
@@ -86,7 +86,7 @@ export function WordGrid({
       renderItem={({ item }) => <WordCell word={item} onPress={onPressWord} />}
       onEndReached={onEndReached}
       onEndReachedThreshold={END_REACHED_THRESHOLD}
-      ListFooterComponent={<GridFooter isFetchingMore={isFetchingMore} hasError={hasError} onRetry={onEndReached} />}
+      ListFooterComponent={<GridFooter isFetchingNextPage={isFetchingNextPage} isError={isError} onRetry={onEndReached} />}
       className="border-t border-l border-border"
       showsVerticalScrollIndicator
     />

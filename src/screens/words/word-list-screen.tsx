@@ -9,17 +9,17 @@ import { WordGrid } from "./components/word-grid";
 export function WordListScreen() {
   const { t } = useTranslate();
   const navigation = useNavigation();
-  const list = useWordList();
+  const wordList = useWordList();
 
   return (
     <Page title={t("words.title")} safeTop={false}>
       <WordGrid
-        words={list.words}
-        isLoading={list.isLoading}
-        isFetchingMore={list.isFetchingMore}
-        hasError={list.error !== null}
-        onRetry={list.refetch}
-        onEndReached={list.fetchMore}
+        words={wordList.list}
+        isLoading={wordList.isLoading}
+        isFetchingNextPage={wordList.isFetchingNextPage}
+        isError={wordList.isError}
+        onRetry={wordList.refresh}
+        onEndReached={wordList.fetchNextPage}
         onPressWord={(word) => navigation.navigate("Word", { word })}
       />
     </Page>

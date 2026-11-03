@@ -7,7 +7,7 @@ import { useTranslate } from "@translate";
 type WordMeaningsProps = {
   lookup: EntryLookup | undefined;
   isLoading: boolean;
-  hasError: boolean;
+  isError: boolean;
   onRetry: () => void;
 };
 
@@ -42,14 +42,14 @@ function MeaningBlock({ meaning }: MeaningBlockProps) {
   );
 }
 
-export function WordMeanings({ lookup, isLoading, hasError, onRetry }: WordMeaningsProps) {
+export function WordMeanings({ lookup, isLoading, isError, onRetry }: WordMeaningsProps) {
   const { t } = useTranslate();
 
   if (isLoading) {
     return <LoadingState />;
   }
 
-  if (hasError || !lookup) {
+  if (isError || !lookup) {
     return <ErrorState message={t("word.error")} retryLabel={t("common.retry")} onRetry={onRetry} />;
   }
 

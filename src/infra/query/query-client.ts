@@ -5,6 +5,7 @@ import { mmkvStorage } from "../storage/mmkv-storage";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 const CACHE_MAX_AGE = 7 * DAY_MS;
+const CACHE_VERSION = "2";
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -20,4 +21,5 @@ export const queryPersister = createAsyncStoragePersister({
 export const persistOptions = {
   persister: queryPersister,
   maxAge: CACHE_MAX_AGE,
+  buster: CACHE_VERSION,
 };
