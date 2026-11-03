@@ -25,7 +25,7 @@ export function useAppQuery<TD>({
   staleTime,
   retry,
 }: UseAppQueryParams<TD>): UseAppQueryReturn<TD> {
-  const { data, dataUpdatedAt, isLoading, isFetching, isPaused, error, refetch } = useQuery<TD, Error, TD>({
+  const query = useQuery<TD, Error, TD>({
     queryKey,
     queryFn,
     enabled,
@@ -33,15 +33,17 @@ export function useAppQuery<TD>({
     retry,
   });
 
+  function refetch() {
+    query.refetch();
+  }
+
   return {
-    data,
-    dataUpdatedAt,
-    isLoading,
-    isFetching,
-    isPaused,
-    error,
-    refetch: () => {
-      refetch();
-    },
+    data: query.data,
+    dataUpdatedAt: query.dataUpdatedAt,
+    isLoading: query.isLoading,
+    isFetching: query.isFetching,
+    isPaused: query.isPaused,
+    error: query.error,
+    refetch,
   };
 }

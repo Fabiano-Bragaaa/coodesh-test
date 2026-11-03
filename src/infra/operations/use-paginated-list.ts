@@ -37,6 +37,16 @@ export function usePaginatedList<Data>(
 
   const list = useMemo(() => query.data?.pages.flatMap((page) => page.data) ?? [], [query.data]);
 
+  function refresh() {
+    query.refetch();
+  }
+
+  function fetchNextPage() {
+    if (query.hasNextPage && !query.isFetchingNextPage) {
+      query.fetchNextPage();
+    }
+  }
+
   return {
     list,
     isError: query.isError,
@@ -44,13 +54,7 @@ export function usePaginatedList<Data>(
     isFetchingNextPage: query.isFetchingNextPage,
     isRefreshing: query.isRefetching && !query.isFetchingNextPage,
     hasNextPage: query.hasNextPage,
-    refresh: () => {
-      query.refetch();
-    },
-    fetchNextPage: () => {
-      if (query.hasNextPage && !query.isFetchingNextPage) {
-        query.fetchNextPage();
-      }
-    },
+    refresh,
+    fetchNextPage,
   };
 }
