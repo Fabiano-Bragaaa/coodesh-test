@@ -1,6 +1,7 @@
 export * from "./button/button";
 export * from "./empty-state/empty-state";
 export * from "./error-state/error-state";
+export * from "./icon/icon";
 export * from "./infinity-scroll-list/infinity-scroll-list";
 export * from "./loading-state/loading-state";
 export * from "./page/page";

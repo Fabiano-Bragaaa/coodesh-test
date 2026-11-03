@@ -1,13 +1,12 @@
 import { type ReactNode } from "react";
-import { X } from "lucide-react-native";
 import { ScrollView, View } from "react-native";
 
 import { useAppSafeArea } from "@hooks";
-import { colors } from "@theme";
 import { useTranslate } from "@translate";
 import { twMerge } from "@utils";
 
 import { Button } from "../button/button";
+import { Icon } from "../icon/icon";
 import { Text } from "../text/text";
 
 type PageProps = {
@@ -44,7 +43,7 @@ export function Page({
             title={t("common.close")}
             variant="ghost"
             size="icon"
-            leftComponent={<X color={colors.text} size={24} />}
+            leftComponent={<Icon name="X" />}
             onPress={onClose}
           />
         </View>
