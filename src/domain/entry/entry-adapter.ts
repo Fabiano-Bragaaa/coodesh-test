@@ -1,0 +1,44 @@
+import { type EntryJson, type MeaningJson } from "./entry-api";
+import { type EntryLookup, type Meaning } from "./entry-types";
+
+function toMeaning(meaning: MeaningJson): Meaning {
+  return {
+    partOfSpeech: meaning.partOfSpeech,
+    definitions: meaning.definitions.map((definition) => ({
+      text: definition.definition,
+      example: definition.example ?? null,
+    })),
+    synonyms: meaning.synonyms ?? [],
+  };
+}
+
+function firstPhonetic(entries: EntryJson[]): string | null {
+  const phonetics = entries.flatMap((entry) => entry.phonetics ?? []);
+  const declared = entries.find((entry) => entry.phonetic)?.phonetic;
+
+  return declared ?? phonetics.find((phonetic) => phonetic.text)?.text ?? null;
+}
+
+function firstAudio(entries: EntryJson[]): string | null {
+  const phonetics = entries.flatMap((entry) => entry.phonetics ?? []);
+
+  return phonetics.find((phonetic) => phonetic.audio)?.audio ?? null;
+}
+
+function toLookup(word: string, entries: EntryJson[] | null): EntryLookup {
+  if (!entries || entries.length === 0) {
+    return { status: "not-found" };
+  }
+
+  return {
+    status: "found",
+    entry: {
+      word: entries[0]?.word ?? word,
+      phonetic: firstPhonetic(entries),
+      audioUrl: firstAudio(entries),
+      meanings: entries.flatMap((entry) => (entry.meanings ?? []).map(toMeaning)),
+    },
+  };
+}
+
+export const entryAdapter = { toLookup };
