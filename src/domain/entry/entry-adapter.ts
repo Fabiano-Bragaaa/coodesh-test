@@ -12,6 +12,23 @@ function toMeaning(meaning: MeaningJson): Meaning {
   };
 }
 
+function groupByPartOfSpeech(meanings: Meaning[]): Meaning[] {
+  const groups = new Map<string, Meaning>();
+
+  for (const meaning of meanings) {
+    const group = groups.get(meaning.partOfSpeech);
+
+    if (group) {
+      group.definitions.push(...meaning.definitions);
+      group.synonyms = [...new Set([...group.synonyms, ...meaning.synonyms])];
+    } else {
+      groups.set(meaning.partOfSpeech, { ...meaning, definitions: [...meaning.definitions] });
+    }
+  }
+
+  return [...groups.values()];
+}
+
 function firstPhonetic(entries: EntryJson[]): string | null {
   const phonetics = entries.flatMap((entry) => entry.phonetics ?? []);
   const declared = entries.find((entry) => entry.phonetic)?.phonetic;
@@ -36,7 +53,7 @@ function toLookup(word: string, entries: EntryJson[] | null): EntryLookup {
       word: entries[0]?.word ?? word,
       phonetic: firstPhonetic(entries),
       audioUrl: firstAudio(entries),
-      meanings: entries.flatMap((entry) => (entry.meanings ?? []).map(toMeaning)),
+      meanings: groupByPartOfSpeech(entries.flatMap((entry) => (entry.meanings ?? []).map(toMeaning))),
     },
   };
 }

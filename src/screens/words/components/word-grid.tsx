@@ -28,7 +28,7 @@ function WordCell({ word, onPress }: WordCellProps) {
       accessibilityRole="button"
       onPress={() => onPress(word.text)}
       className="h-20 w-1/3 items-center justify-center border-r border-b border-border bg-surface px-2 active:bg-surface-muted">
-      <Text numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.7}>
+      <Text numberOfLines={1}>
         {word.text}
       </Text>
     </Pressable>
