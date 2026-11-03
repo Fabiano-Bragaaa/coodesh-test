@@ -1,10 +1,8 @@
 import { useNavigation } from "@react-navigation/native";
 
-import { Button, Icon, InfinityScrollList, Page } from "@components";
+import { Button, Icon, InfinityScrollList, Page, WORD_COLUMNS, WordCell } from "@components";
 import { useSignOut, useWordList } from "@domain";
 import { useTranslate } from "@translate";
-
-import { WORD_COLUMNS, WordCell } from "./components/word-cell";
 
 export function WordListScreen() {
   const { t } = useTranslate();
@@ -36,7 +34,7 @@ export function WordListScreen() {
       }>
       <InfinityScrollList
         list={wordList.list}
-        renderItem={({ item, index }) => <WordCell word={item} index={index} onPress={openWord} />}
+        renderItem={({ item, index }) => <WordCell word={item.text} index={index} onPress={openWord} />}
         isLoading={wordList.isLoading}
         isError={wordList.isError}
         isFetchingNextPage={wordList.isFetchingNextPage}

@@ -1,13 +1,13 @@
 import { Pressable } from "react-native";
 
-import { Text } from "@components";
-import { type Word } from "@domain";
 import { twMerge } from "@utils";
+
+import { Text } from "../text/text";
 
 export const WORD_COLUMNS = 3;
 
 type WordCellProps = {
-  word: Word;
+  word: string;
   index: number;
   onPress: (word: string) => void;
 };
@@ -19,13 +19,13 @@ export function WordCell({ word, index, onPress }: WordCellProps) {
   return (
     <Pressable
       accessibilityRole="button"
-      onPress={() => onPress(word.text)}
+      onPress={() => onPress(word)}
       className={twMerge(
         "h-20 w-1/3 items-center justify-center border-r border-b border-border bg-surface px-2 active:bg-surface-muted",
         firstRow && "border-t",
         firstColumn && "border-l",
       )}>
-      <Text numberOfLines={1}>{word.text}</Text>
+      <Text numberOfLines={1}>{word}</Text>
     </Pressable>
   );
 }
