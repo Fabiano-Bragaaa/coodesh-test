@@ -1,5 +1,10 @@
 import { type NavigatorScreenParams } from "@react-navigation/native";
 
+export type AuthStackParamList = {
+  SignIn: undefined;
+  SignUp: undefined;
+};
+
 export type HomeTabsParamList = {
   WordList: undefined;
   History: undefined;
@@ -13,6 +18,6 @@ export type AppStackParamList = {
 
 declare global {
   namespace ReactNavigation {
-    interface RootParamList extends AppStackParamList, HomeTabsParamList {}
+    interface RootParamList extends AuthStackParamList, AppStackParamList, HomeTabsParamList {}
   }
 }
