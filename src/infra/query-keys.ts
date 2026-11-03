@@ -1,7 +1,7 @@
 export const queryKeys = {
   words: {
-    all: ["words"],
-    page: (page: number) => ["words", "page", page],
+    list: ["words", "list"],
+    neighbors: (word: string) => ["words", "neighbors", word],
   },
   entry: {
     one: (word: string) => ["entry", word],

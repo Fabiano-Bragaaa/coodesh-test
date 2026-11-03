@@ -8,6 +8,7 @@ export type HomeTabsParamList = {
 
 export type AppStackParamList = {
   Home: NavigatorScreenParams<HomeTabsParamList>;
+  Word: { word: string };
 };
 
 declare global {
