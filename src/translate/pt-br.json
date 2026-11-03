@@ -23,7 +23,9 @@
     "previous": "Voltar",
     "next": "Próximo",
     "notFound": "Essa palavra ainda não tem definição no dicionário.",
-    "error": "Não conseguimos carregar essa palavra. Confira sua conexão."
+    "error": "Não conseguimos carregar essa palavra. Confira sua conexão.",
+    "favorite": "Favoritar",
+    "unfavorite": "Remover dos favoritos"
   },
   "history": {
     "title": "Histórico",
