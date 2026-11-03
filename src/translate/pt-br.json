@@ -32,5 +32,9 @@
   "favorites": {
     "title": "Favoritos",
     "empty": "As palavras que você favoritar aparecem aqui."
+  },
+  "form": {
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Esconder senha"
   }
 }
