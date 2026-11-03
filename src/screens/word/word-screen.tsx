@@ -21,6 +21,10 @@ export function WordScreen({ route, navigation }: WordScreenProps) {
   useWordHistory(word);
   const found = entry.data?.status === "found" ? entry.data.entry : null;
 
+  function showWord(nextWord: string) {
+    navigation.setParams({ word: nextWord });
+  }
+
   return (
     <Page onClose={navigation.goBack}>
       <View className="flex-1 gap-5">
@@ -40,7 +44,7 @@ export function WordScreen({ route, navigation }: WordScreenProps) {
       <WordSteps
         previous={neighbors.data?.previous ?? null}
         next={neighbors.data?.next ?? null}
-        onSelect={(nextWord) => navigation.setParams({ word: nextWord })}
+        onSelect={showWord}
       />
     </Page>
   );
