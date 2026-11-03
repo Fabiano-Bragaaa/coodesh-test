@@ -6,4 +6,8 @@ export const queryKeys = {
   entry: {
     one: (word: string) => ["entry", word],
   },
+  favorites: {
+    list: (userId: string | undefined) => ["favorites", "list", userId],
+    one: (userId: string | undefined, word: string) => ["favorites", "one", userId, word],
+  },
 };
