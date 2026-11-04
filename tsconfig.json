@@ -2,6 +2,7 @@
   "extends": "expo/tsconfig.base",
   "compilerOptions": {
     "strict": true,
+    "types": ["jest"],
     "paths": {
       "@components": ["./src/components"],
       "@domain": ["./src/domain"],
@@ -12,9 +13,10 @@
       "@services": ["./src/services"],
       "@theme": ["./src/theme"],
       "@translate": ["./src/translate"],
-      "@utils": ["./src/utils"]
+      "@utils": ["./src/utils"],
+      "test-utils": ["./src/test/test-utils"]
     }
   },
   "include": ["**/*.ts", "**/*.tsx", "uniwind-types.d.ts", "css-modules.d.ts"],
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "android", "ios"]
+  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "jest.config.js", "android", "ios"]
 }
