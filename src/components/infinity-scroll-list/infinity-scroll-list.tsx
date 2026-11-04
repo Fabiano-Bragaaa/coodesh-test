@@ -5,6 +5,7 @@ import { useTranslate } from "@translate";
 
 import { EmptyList, type EmptyListProps } from "./components/empty-list";
 import { ListFooter } from "./components/list-footer";
+import { useFillViewport } from "./hooks/use-fill-viewport";
 
 const END_REACHED_THRESHOLD = 0.6;
 const emptyContentStyle = { flexGrow: 1 };
@@ -40,6 +41,7 @@ export function InfinityScrollList<ItemT extends ItemTConstraints>({
 }: InfinityScrollListProps<ItemT>) {
   const { t } = useTranslate();
   const isEmpty = list.length === 0;
+  const viewport = useFillViewport(onEndReached);
 
   return (
     <FlatList
@@ -49,6 +51,8 @@ export function InfinityScrollList<ItemT extends ItemTConstraints>({
       showsVerticalScrollIndicator={false}
       onEndReached={onEndReached}
       onEndReachedThreshold={END_REACHED_THRESHOLD}
+      onLayout={viewport.measureViewport}
+      onContentSizeChange={viewport.measureContent}
       refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={onRefresh} tintColor={colors.primary} />}
       ListEmptyComponent={
         <EmptyList
