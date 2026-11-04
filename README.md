@@ -153,10 +153,3 @@ No Android, o `expo-audio` só manda o erro do player uma vez, e as atualizaçõ
 **Injeção de dependência.** Decidi não usar. A separação em camadas, com uma api por funcionalidade, já deixa cada parte trocável nos testes: os testes substituem o service ou a api com `jest.spyOn`, sem precisar de um container.
 
 **Mudanças em relação ao wireframe.** Mantive as três abas, a grade de 3 colunas e a tela da palavra com card, áudio, significados e Voltar/Próximo. Acrescentei as telas de login e o botão de sair, ao lado do título da lista.
-
-## O que eu faria com mais tempo
-
-- Fazer o Voltar/Próximo seguir a lista de onde a palavra foi aberta. Hoje ele sempre segue a lista geral do dicionário, mesmo vindo do histórico ou dos favoritos.
-- Criar ícone e splash próprios.
-- Mostrar uma mensagem quando uma ação falhar em segundo plano, como favoritar sem internet.
-- Escrever testes de ponta a ponta com Maestro.
