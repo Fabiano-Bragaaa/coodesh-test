@@ -16,6 +16,7 @@ const mockStatus = {
   currentTime: 0,
   duration: 0,
   didJustFinish: false,
+  error: null,
 };
 
 jest.mock("expo-audio", () => ({
@@ -42,7 +43,7 @@ function finishSpeech() {
 describe("useWordAudio", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    Object.assign(mockStatus, { playing: false, currentTime: 0, duration: 0, didJustFinish: false });
+    Object.assign(mockStatus, { playing: false, currentTime: 0, duration: 0, didJustFinish: false, error: null });
   });
 
   describe("when the word has a recording", () => {
@@ -81,6 +82,20 @@ describe("useWordAudio", () => {
 
       expect(mockPlayer.seekTo).toHaveBeenCalledWith(0);
       expect(mockPlayer.play).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe("when the recording fails to load", () => {
+    it("speaks the word instead", async () => {
+      Object.assign(mockStatus, { error: "The requested URL was not found on this server." });
+
+      const { result } = await renderWordAudio({ word: "hello", audioUrl: HELLO_AUDIO });
+
+      await act(() => result.current.toggle());
+
+      expect(result.current.hasRecording).toBe(false);
+      expect(Speech.speak).toHaveBeenCalledWith("hello", expect.objectContaining({ language: "en-US" }));
+      expect(mockPlayer.play).not.toHaveBeenCalled();
     });
   });
 

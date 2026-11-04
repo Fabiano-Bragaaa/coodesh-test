@@ -29,7 +29,7 @@
     "play": "Ouvir a pronúncia",
     "pause": "Pausar a pronúncia",
     "audioProgress": "Andamento da pronúncia",
-    "synthesizedVoice": "Sem gravação para essa palavra. A pronúncia sai na voz do aparelho."
+    "synthesizedVoice": "Sem gravação disponível. A pronúncia sai na voz do aparelho."
   },
   "history": {
     "title": "Histórico",
