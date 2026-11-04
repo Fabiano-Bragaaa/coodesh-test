@@ -25,7 +25,11 @@
     "notFound": "Essa palavra ainda não tem definição no dicionário.",
     "error": "Não conseguimos carregar essa palavra. Confira sua conexão.",
     "favorite": "Favoritar",
-    "unfavorite": "Remover dos favoritos"
+    "unfavorite": "Remover dos favoritos",
+    "play": "Ouvir a pronúncia",
+    "pause": "Pausar a pronúncia",
+    "audioProgress": "Andamento da pronúncia",
+    "synthesizedVoice": "Sem gravação para essa palavra. A pronúncia sai na voz do aparelho."
   },
   "history": {
     "title": "Histórico",
