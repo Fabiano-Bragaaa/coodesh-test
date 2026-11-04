@@ -1,4 +1,7 @@
 import { View } from "react-native";
+import Animated from "react-native-reanimated";
+
+import { useProgressBar } from "@animations";
 
 const PERCENT = 100;
 
@@ -8,16 +11,17 @@ type ProgressBarProps = {
 };
 
 export function ProgressBar({ progress, label }: ProgressBarProps) {
-  const percent = Math.round(Math.min(Math.max(progress, 0), 1) * PERCENT);
+  const clamped = Math.min(Math.max(progress, 0), 1);
+  const { fillStyle } = useProgressBar(clamped);
 
   return (
     <View
       accessible
       accessibilityRole="progressbar"
       accessibilityLabel={label}
-      accessibilityValue={{ min: 0, max: PERCENT, now: percent }}
+      accessibilityValue={{ min: 0, max: PERCENT, now: Math.round(clamped * PERCENT) }}
       className="h-1.5 flex-1 overflow-hidden rounded-full bg-border">
-      <View className="h-full rounded-full bg-primary" style={{ width: `${percent}%` }} />
+      <Animated.View className="h-full rounded-full bg-primary" style={fillStyle} />
     </View>
   );
 }
