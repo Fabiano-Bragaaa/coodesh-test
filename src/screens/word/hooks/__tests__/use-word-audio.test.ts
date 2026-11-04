@@ -16,6 +16,7 @@ const mockStatus = {
   currentTime: 0,
   duration: 0,
   didJustFinish: false,
+  isLoaded: true,
   error: null,
 };
 
@@ -43,7 +44,7 @@ function finishSpeech() {
 describe("useWordAudio", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    Object.assign(mockStatus, { playing: false, currentTime: 0, duration: 0, didJustFinish: false, error: null });
+    Object.assign(mockStatus, { playing: false, currentTime: 0, duration: 0, didJustFinish: false, isLoaded: true, error: null });
   });
 
   describe("when the word has a recording", () => {
@@ -96,6 +97,31 @@ describe("useWordAudio", () => {
       expect(result.current.hasRecording).toBe(false);
       expect(Speech.speak).toHaveBeenCalledWith("hello", expect.objectContaining({ language: "en-US" }));
       expect(mockPlayer.play).not.toHaveBeenCalled();
+    });
+
+    it("keeps speaking the word after the error is cleared from the status", async () => {
+      Object.assign(mockStatus, { isLoaded: false, error: "Response code: 502" });
+
+      const { result, rerender } = await renderWordAudio({ word: "hello", audioUrl: HELLO_AUDIO });
+
+      Object.assign(mockStatus, { error: null });
+      await rerender({ word: "hello", audioUrl: HELLO_AUDIO });
+      await act(() => result.current.toggle());
+
+      expect(result.current.hasRecording).toBe(false);
+      expect(Speech.speak).toHaveBeenCalledTimes(1);
+      expect(mockPlayer.play).not.toHaveBeenCalled();
+    });
+
+    it("speaks the word while the recording never loads", async () => {
+      Object.assign(mockStatus, { isLoaded: false });
+
+      const { result } = await renderWordAudio({ word: "hello", audioUrl: HELLO_AUDIO });
+
+      await act(() => result.current.toggle());
+
+      expect(result.current.hasRecording).toBe(false);
+      expect(Speech.speak).toHaveBeenCalledTimes(1);
     });
   });
 
