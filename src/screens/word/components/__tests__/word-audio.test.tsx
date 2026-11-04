@@ -4,7 +4,6 @@ import { WordAudio } from "../word-audio";
 
 type WordAudioState = {
   visible?: boolean;
-  hasRecording?: boolean;
   isPlaying?: boolean;
   progress?: number;
   onToggle?: () => void;
@@ -12,7 +11,6 @@ type WordAudioState = {
 
 function renderWordAudio({
   visible = true,
-  hasRecording = true,
   isPlaying = false,
   progress = 0,
   onToggle = jest.fn(),
@@ -20,7 +18,6 @@ function renderWordAudio({
   return render(
     <WordAudio
       visible={visible}
-      hasRecording={hasRecording}
       isPlaying={isPlaying}
       progress={progress}
       onToggle={onToggle}
@@ -49,12 +46,5 @@ describe("<WordAudio />", () => {
     await renderWordAudio({ isPlaying: true });
 
     expect(screen.getByRole("button", { name: "Pausar a pronúncia" })).toBeOnTheScreen();
-  });
-
-  it("explains the synthesized voice instead of the bar when there is no recording", async () => {
-    await renderWordAudio({ hasRecording: false });
-
-    expect(screen.getByText("Sem gravação disponível. A pronúncia sai na voz do aparelho.")).toBeOnTheScreen();
-    expect(screen.queryByRole("progressbar")).not.toBeOnTheScreen();
   });
 });

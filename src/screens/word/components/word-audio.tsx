@@ -1,17 +1,16 @@
 import { View } from "react-native";
 
-import { Button, Icon, ProgressBar, Text } from "@components";
+import { Button, Icon, ProgressBar } from "@components";
 import { useTranslate } from "@translate";
 
 type WordAudioProps = {
   visible: boolean;
-  hasRecording: boolean;
   isPlaying: boolean;
   progress: number;
   onToggle: () => void;
 };
 
-export function WordAudio({ visible, hasRecording, isPlaying, progress, onToggle }: WordAudioProps) {
+export function WordAudio({ visible, isPlaying, progress, onToggle }: WordAudioProps) {
   const { t } = useTranslate();
 
   if (!visible) {
@@ -27,13 +26,7 @@ export function WordAudio({ visible, hasRecording, isPlaying, progress, onToggle
         leftComponent={<Icon name={isPlaying ? "Pause" : "Play"} size={18} color="primary" fill="primary" />}
         onPress={onToggle}
       />
-      {hasRecording ? (
-        <ProgressBar progress={progress} label={t("word.audioProgress")} />
-      ) : (
-        <Text variant="body-md" className="flex-1 text-text-muted">
-          {t("word.synthesizedVoice")}
-        </Text>
-      )}
+      <ProgressBar progress={progress} label={t("word.audioProgress")} />
     </View>
   );
 }

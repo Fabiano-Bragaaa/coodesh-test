@@ -53,7 +53,6 @@ describe("useWordAudio", () => {
 
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(true);
       expect(mockPlayer.play).toHaveBeenCalledTimes(1);
       expect(Speech.speak).not.toHaveBeenCalled();
     });
@@ -94,7 +93,6 @@ describe("useWordAudio", () => {
 
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(false);
       expect(Speech.speak).toHaveBeenCalledWith("hello", expect.objectContaining({ language: "en-US" }));
       expect(mockPlayer.play).not.toHaveBeenCalled();
     });
@@ -108,7 +106,6 @@ describe("useWordAudio", () => {
       await rerender({ word: "hello", audioUrl: HELLO_AUDIO });
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(false);
       expect(Speech.speak).toHaveBeenCalledTimes(1);
       expect(mockPlayer.play).not.toHaveBeenCalled();
     });
@@ -120,7 +117,6 @@ describe("useWordAudio", () => {
 
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(false);
       expect(Speech.speak).toHaveBeenCalledTimes(1);
     });
   });
@@ -131,13 +127,38 @@ describe("useWordAudio", () => {
 
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(false);
       expect(result.current.isPlaying).toBe(true);
       expect(Speech.speak).toHaveBeenCalledWith("aardwolves", expect.objectContaining({ language: "en-US" }));
       expect(mockPlayer.play).not.toHaveBeenCalled();
 
       await act(() => finishSpeech());
 
+      expect(result.current.isPlaying).toBe(false);
+    });
+
+    it("moves the bar while the voice speaks and fills it when the voice is done", async () => {
+      jest.useFakeTimers();
+      const { result } = await renderWordAudio({ word: "aardwolves", audioUrl: null });
+
+      await act(() => result.current.toggle());
+      await act(() => jest.advanceTimersByTime(500));
+
+      expect(result.current.progress).toBeGreaterThan(0);
+      expect(result.current.progress).toBeLessThan(1);
+
+      await act(() => finishSpeech());
+
+      expect(result.current.progress).toBe(1);
+      jest.useRealTimers();
+    });
+
+    it("empties the bar when the voice is interrupted", async () => {
+      const { result } = await renderWordAudio({ word: "aardwolves", audioUrl: null });
+
+      await act(() => result.current.toggle());
+      await act(() => jest.mocked(Speech.speak).mock.calls[0]?.[1]?.onStopped?.());
+
+      expect(result.current.progress).toBe(0);
       expect(result.current.isPlaying).toBe(false);
     });
 

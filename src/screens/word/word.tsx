@@ -39,7 +39,6 @@ export function WordScreen({ route, navigation }: WordScreenProps) {
         />
         <WordAudio
           visible={found !== null}
-          hasRecording={audio.hasRecording}
           isPlaying={audio.isPlaying}
           progress={audio.progress}
           onToggle={audio.toggle}

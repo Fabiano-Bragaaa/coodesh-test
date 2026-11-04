@@ -33,5 +33,5 @@ export function useWordAudio(word: string, audioUrl: string | null) {
     toggleSpeech();
   }
 
-  return { hasRecording, isPlaying, progress: sound.progress, toggle };
+  return { isPlaying, progress: hasRecording ? sound.progress : speech.progress, toggle };
 }
