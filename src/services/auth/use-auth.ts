@@ -16,3 +16,10 @@ export function useAuth() {
 
   return { user, isLoading };
 }
+
+export function useAuthService(): Pick<AuthState, "saveUser" | "removeUser"> {
+  const saveUser = useAuthStore((state) => state.saveUser);
+  const removeUser = useAuthStore((state) => state.removeUser);
+
+  return { saveUser, removeUser };
+}
