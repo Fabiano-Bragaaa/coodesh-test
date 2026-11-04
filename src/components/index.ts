@@ -8,7 +8,6 @@ export * from "./infinity-scroll-list/infinity-scroll-list";
 export * from "./loading-state/loading-state";
 export * from "./page/page";
 export * from "./password-input/password-input";
-export * from "./progress-bar/progress-bar";
 export * from "./segmented-tabs/segmented-tabs";
 export * from "./text/text";
 export * from "./text-input/text-input";
