@@ -1,7 +1,8 @@
 import { NavigationContainer } from "@react-navigation/native";
 
 import { LoadingState } from "@components";
-import { useAuth, useAuthStartup } from "@services";
+import { useAuthStartup } from "@hooks";
+import { useAuth } from "@services";
 
 import { AppStack } from "./app-stack";
 import { AuthStack } from "./auth-stack";
