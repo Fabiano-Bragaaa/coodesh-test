@@ -11,3 +11,4 @@ export * from "./password-input/password-input";
 export * from "./segmented-tabs/segmented-tabs";
 export * from "./text/text";
 export * from "./text-input/text-input";
+export * from "./word-cell/word-cell";
