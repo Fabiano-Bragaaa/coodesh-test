@@ -26,5 +26,5 @@ export function useSoundPlayer(url: string | null) {
     player.pause();
   }
 
-  return { isPlaying: status.playing, progress, play, pause };
+  return { isPlaying: status.playing, failed: Boolean(status.error), progress, play, pause };
 }

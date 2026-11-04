@@ -54,7 +54,7 @@ describe("<WordAudio />", () => {
   it("explains the synthesized voice instead of the bar when there is no recording", async () => {
     await renderWordAudio({ hasRecording: false });
 
-    expect(screen.getByText("Sem gravação para essa palavra. A pronúncia sai na voz do aparelho.")).toBeOnTheScreen();
+    expect(screen.getByText("Sem gravação disponível. A pronúncia sai na voz do aparelho.")).toBeOnTheScreen();
     expect(screen.queryByRole("progressbar")).not.toBeOnTheScreen();
   });
 });
