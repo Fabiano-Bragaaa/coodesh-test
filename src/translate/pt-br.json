@@ -32,5 +32,38 @@
   "favorites": {
     "title": "Favoritos",
     "empty": "As palavras que você favoritar aparecem aqui."
+  },
+  "form": {
+    "showPassword": "Mostrar senha",
+    "hidePassword": "Esconder senha",
+    "emailInvalid": "Digite um e-mail válido.",
+    "passwordRequired": "Digite sua senha.",
+    "passwordTooShort": "A senha precisa ter pelo menos {{min}} caracteres."
+  },
+  "auth": {
+    "email": "E-mail",
+    "emailPlaceholder": "seu@email.com",
+    "password": "Senha",
+    "passwordPlaceholder": "Sua senha",
+    "newPasswordPlaceholder": "Pelo menos {{min}} caracteres",
+    "failure": {
+      "invalidCredentials": "E-mail ou senha incorretos.",
+      "emailTaken": "Já existe uma conta com esse e-mail.",
+      "weakPassword": "Essa senha é fraca. Escolha outra.",
+      "unknown": "Não deu para continuar agora. Confira sua conexão e tente de novo."
+    },
+    "signOut": "Sair"
+  },
+  "signIn": {
+    "title": "Entrar",
+    "subtitle": "Entre para guardar seus favoritos e as palavras que você já viu.",
+    "submit": "Entrar",
+    "createAccount": "Criar uma conta"
+  },
+  "signUp": {
+    "title": "Criar conta",
+    "subtitle": "Com uma conta, seus favoritos e seu histórico ficam salvos.",
+    "submit": "Criar minha conta",
+    "haveAccount": "Já tenho uma conta"
   }
 }

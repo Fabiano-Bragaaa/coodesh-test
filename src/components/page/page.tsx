@@ -12,6 +12,7 @@ import { Text } from "../text/text";
 type PageProps = {
   children: ReactNode;
   title?: string;
+  rightComponent?: ReactNode;
   scroll?: boolean;
   hidePadding?: boolean;
   safeTop?: boolean;
@@ -24,6 +25,7 @@ const contentContainerStyle = { flexGrow: 1 };
 export function Page({
   children,
   title,
+  rightComponent,
   scroll = false,
   hidePadding = false,
   safeTop = true,
@@ -49,9 +51,12 @@ export function Page({
         </View>
       ) : null}
       {title !== undefined ? (
-        <Text variant="title-md" className="py-3">
-          {title}
-        </Text>
+        <View className="flex-row items-center justify-between gap-3 py-3">
+          <Text variant="title-md" className="flex-1">
+            {title}
+          </Text>
+          {rightComponent ? <View className="-my-3 -mr-2">{rightComponent}</View> : null}
+        </View>
       ) : null}
       {children}
     </View>
@@ -60,7 +65,11 @@ export function Page({
   return (
     <View className="flex-1 bg-background">
       {scroll ? (
-        <ScrollView contentContainerStyle={contentContainerStyle} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          contentContainerStyle={contentContainerStyle}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          automaticallyAdjustKeyboardInsets>
           {body}
         </ScrollView>
       ) : (
