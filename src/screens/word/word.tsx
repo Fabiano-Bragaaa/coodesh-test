@@ -5,11 +5,9 @@ import { Page } from "@components";
 import { useEntry, useWordNeighbors } from "@domain";
 import { type AppStackParamList } from "@routes";
 
-import { WordAudio } from "./components/word-audio";
 import { WordHero } from "./components/word-hero";
 import { WordMeanings } from "./components/word-meanings";
 import { WordSteps } from "./components/word-steps";
-import { useWordAudio } from "./hooks/use-word-audio";
 import { useWordFavorite } from "./hooks/use-word-favorite";
 import { useWordHistory } from "./hooks/use-word-history";
 
@@ -22,7 +20,6 @@ export function WordScreen({ route, navigation }: WordScreenProps) {
   const favorite = useWordFavorite(word);
   useWordHistory(word);
   const found = entry.data?.status === "found" ? entry.data.entry : null;
-  const audio = useWordAudio(word, found?.audioUrl ?? null);
 
   function showWord(nextWord: string) {
     navigation.setParams({ word: nextWord });
@@ -36,13 +33,6 @@ export function WordScreen({ route, navigation }: WordScreenProps) {
           phonetic={found?.phonetic ?? null}
           favorite={favorite.favorite}
           onToggleFavorite={favorite.toggle}
-        />
-        <WordAudio
-          visible={found !== null}
-          hasRecording={audio.hasRecording}
-          isPlaying={audio.isPlaying}
-          progress={audio.progress}
-          onToggle={audio.toggle}
         />
         <WordMeanings
           lookup={entry.data}
