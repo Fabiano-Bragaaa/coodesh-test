@@ -28,8 +28,7 @@
     "unfavorite": "Remover dos favoritos",
     "play": "Ouvir a pronúncia",
     "pause": "Pausar a pronúncia",
-    "audioProgress": "Andamento da pronúncia",
-    "synthesizedVoice": "Sem gravação disponível. A pronúncia sai na voz do aparelho."
+    "audioProgress": "Andamento da pronúncia"
   },
   "history": {
     "title": "Histórico",

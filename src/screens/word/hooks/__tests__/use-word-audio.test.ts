@@ -16,6 +16,7 @@ const mockStatus = {
   currentTime: 0,
   duration: 0,
   didJustFinish: false,
+  isLoaded: true,
   error: null,
 };
 
@@ -43,7 +44,7 @@ function finishSpeech() {
 describe("useWordAudio", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    Object.assign(mockStatus, { playing: false, currentTime: 0, duration: 0, didJustFinish: false, error: null });
+    Object.assign(mockStatus, { playing: false, currentTime: 0, duration: 0, didJustFinish: false, isLoaded: true, error: null });
   });
 
   describe("when the word has a recording", () => {
@@ -52,7 +53,6 @@ describe("useWordAudio", () => {
 
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(true);
       expect(mockPlayer.play).toHaveBeenCalledTimes(1);
       expect(Speech.speak).not.toHaveBeenCalled();
     });
@@ -93,9 +93,31 @@ describe("useWordAudio", () => {
 
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(false);
       expect(Speech.speak).toHaveBeenCalledWith("hello", expect.objectContaining({ language: "en-US" }));
       expect(mockPlayer.play).not.toHaveBeenCalled();
+    });
+
+    it("keeps speaking the word after the error is cleared from the status", async () => {
+      Object.assign(mockStatus, { isLoaded: false, error: "Response code: 502" });
+
+      const { result, rerender } = await renderWordAudio({ word: "hello", audioUrl: HELLO_AUDIO });
+
+      Object.assign(mockStatus, { error: null });
+      await rerender({ word: "hello", audioUrl: HELLO_AUDIO });
+      await act(() => result.current.toggle());
+
+      expect(Speech.speak).toHaveBeenCalledTimes(1);
+      expect(mockPlayer.play).not.toHaveBeenCalled();
+    });
+
+    it("speaks the word while the recording never loads", async () => {
+      Object.assign(mockStatus, { isLoaded: false });
+
+      const { result } = await renderWordAudio({ word: "hello", audioUrl: HELLO_AUDIO });
+
+      await act(() => result.current.toggle());
+
+      expect(Speech.speak).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -105,13 +127,38 @@ describe("useWordAudio", () => {
 
       await act(() => result.current.toggle());
 
-      expect(result.current.hasRecording).toBe(false);
       expect(result.current.isPlaying).toBe(true);
       expect(Speech.speak).toHaveBeenCalledWith("aardwolves", expect.objectContaining({ language: "en-US" }));
       expect(mockPlayer.play).not.toHaveBeenCalled();
 
       await act(() => finishSpeech());
 
+      expect(result.current.isPlaying).toBe(false);
+    });
+
+    it("moves the bar while the voice speaks and fills it when the voice is done", async () => {
+      jest.useFakeTimers();
+      const { result } = await renderWordAudio({ word: "aardwolves", audioUrl: null });
+
+      await act(() => result.current.toggle());
+      await act(() => jest.advanceTimersByTime(500));
+
+      expect(result.current.progress).toBeGreaterThan(0);
+      expect(result.current.progress).toBeLessThan(1);
+
+      await act(() => finishSpeech());
+
+      expect(result.current.progress).toBe(1);
+      jest.useRealTimers();
+    });
+
+    it("empties the bar when the voice is interrupted", async () => {
+      const { result } = await renderWordAudio({ word: "aardwolves", audioUrl: null });
+
+      await act(() => result.current.toggle());
+      await act(() => jest.mocked(Speech.speak).mock.calls[0]?.[1]?.onStopped?.());
+
+      expect(result.current.progress).toBe(0);
       expect(result.current.isPlaying).toBe(false);
     });
 

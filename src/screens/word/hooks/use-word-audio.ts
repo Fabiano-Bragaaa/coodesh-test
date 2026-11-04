@@ -3,7 +3,7 @@ import { useSoundPlayer, useSpeech } from "@infra";
 export function useWordAudio(word: string, audioUrl: string | null) {
   const sound = useSoundPlayer(audioUrl);
   const speech = useSpeech(word);
-  const hasRecording = audioUrl !== null && !sound.failed;
+  const hasRecording = audioUrl !== null && sound.isReady;
   const isPlaying = hasRecording ? sound.isPlaying : speech.isSpeaking;
 
   function toggleRecording() {
@@ -33,5 +33,5 @@ export function useWordAudio(word: string, audioUrl: string | null) {
     toggleSpeech();
   }
 
-  return { hasRecording, isPlaying, progress: sound.progress, toggle };
+  return { isPlaying, progress: hasRecording ? sound.progress : speech.progress, toggle };
 }
